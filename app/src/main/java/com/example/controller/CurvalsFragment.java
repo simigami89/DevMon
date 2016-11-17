@@ -93,8 +93,16 @@ public class CurvalsFragment extends Fragment {
 //        curVal_I_C.setText(mCurVals.getI_C());
 //        curVal_U_C.setText(mCurVals.getU_C());
         //rssi_value.setText(mCurVals.getRSSI());
-        int test = mCurVals.getRSSI();
-        if(mCurVals.getRSSI() < -80)
+//        if(mCurVals.isStateFlag())
+//            switch_button.setImageResource(R.drawable.button_on);
+//        else
+            //switch_button.setImageResource(R.drawable.button_off);
+    }
+
+    public static void ChangeRSSIicon(){
+        if(mCurVals.getRSSI()==0)
+            rssi_icon.setImageResource(R.drawable.rssi_null);
+        else if(mCurVals.getRSSI() < -80)
             rssi_icon.setImageResource(R.drawable.rssi_80);
         else if(mCurVals.getRSSI() < -70)
             rssi_icon.setImageResource(R.drawable.rssi_70);
@@ -102,11 +110,6 @@ public class CurvalsFragment extends Fragment {
             rssi_icon.setImageResource(R.drawable.rssi_60);
         else if(mCurVals.getRSSI() < -50)
             rssi_icon.setImageResource(R.drawable.rssi_50);
-
-//        if(mCurVals.isStateFlag())
-//            switch_button.setImageResource(R.drawable.button_on);
-//        else
-            //switch_button.setImageResource(R.drawable.button_off);
     }
 
     @Override
