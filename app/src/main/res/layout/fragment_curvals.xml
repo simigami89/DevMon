@@ -139,7 +139,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:id="@+id/rssi_indication"
-            android:src="@drawable/rssi_80"
+            android:src="@drawable/rssi_null"
             android:layout_column="3"
             android:padding="10dp"
             android:scaleType="fitCenter"/>

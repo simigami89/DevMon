@@ -34,7 +34,7 @@ public class CurvalsFragment extends Fragment {
     static TextView rssi_value;
 
     static ImageView rssi_icon;
-    static ImageButton switch_button;
+    //static ImageButton switch_button;
     private static CurVals mCurVals;
 
     private OnFragmentInteractionListener mListener;
@@ -81,7 +81,7 @@ public class CurvalsFragment extends Fragment {
 //        curVal_U_C = (TextView) rootView.findViewById(R.id.cur_val_U_C);
         //rssi_value = (TextView) rootView.findViewById(R.id.rssi_value);
         rssi_icon = (ImageView) rootView.findViewById(R.id.rssi_indication);
-        switch_button = (ImageButton) rootView.findViewById(R.id.switch_button);
+        //switch_button = (ImageButton) rootView.findViewById(R.id.switch_button);
         return rootView;
     }
 

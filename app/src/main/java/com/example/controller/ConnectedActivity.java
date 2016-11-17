@@ -149,7 +149,7 @@ public class ConnectedActivity extends AppCompatActivity {
             public void handleMessage(Message msg) {
                 if (msg.what == UPDATE_CURVALS) {
                     CurvalsFragment.showValues();
-
+                    CurvalsFragment.ChangeRSSIicon();
 //                    textView.append(" ");
                 }
                  else if (msg.what == STATE_DISCONNECTED) {
@@ -259,6 +259,8 @@ public class ConnectedActivity extends AppCompatActivity {
                 rssiTimer.schedule(task, 2000, 2000);
             } else if (newState == 0) {
                 Log.d(ConnectedActivity.DEBUG, "Device disconnected");
+                mCurVals.setRSSI(0);
+                mHandler.sendMessage(mHandler.obtainMessage(UPDATE_CURVALS));
                 try {
                     rssiTimer.cancel();
                 } catch (Exception e) {
