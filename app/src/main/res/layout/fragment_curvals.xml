@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:stretchColumns="0,2,4"
+    android:baselineAligned="false">
+
+    <!--<TableRow android:layout_width="fill_parent">-->
+        <!--<View-->
+            <!--android:layout_height="2dp"-->
+            <!--android:background="#ff909090" />-->
+    <!--</TableRow>-->
+
+    <TableRow
+
+        android:layout_height="wrap_content"
+        android:background="#e4e3e3"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp">
+
+        <ImageView
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:text="Индикация"
+            android:src="@drawable/icon_indication"
+            />
+
+
+
+        <View
+            android:layout_height="fill_parent"
+            android:layout_column="1"
+            android:layout_width="2dp" />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_span="2"
+            android:textSize="20sp"
+            android:text="Индикация"
+            android:textStyle="bold" />
+
+
+    </TableRow>
+
+    <TableRow android:layout_width="fill_parent">
+        <View
+            android:layout_span="5"
+            android:layout_height="2dp"
+            android:background="#ff909090" />
+    </TableRow>
+
+    <TableRow >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/icon_i"
+            android:src="@drawable/icon_i"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:layout_column="0"
+            />
+
+        <View
+            android:layout_height="fill_parent"
+            android:layout_column="1"
+            android:layout_width="2dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:padding="30dp"
+            android:layout_height="100dp"
+            android:layout_column="2"
+
+            android:id="@+id/cur_val_I"
+            android:text="1 A"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:textSize="30sp" />
+
+        <!--<TextView-->
+            <!--android:padding="20dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:id="@+id/cur_val_I"-->
+            <!--android:layout_column="2"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:text="0000"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textColor="#000000"-->
+            <!--android:textSize="40sp"-->
+            <!--/>-->
+
+    </TableRow>
+    <TableRow android:layout_width="fill_parent">
+        <View
+            android:layout_span="5"
+            android:layout_height="2dp"
+            android:background="#ff909090" />
+    </TableRow>
+
+    <TableRow
+
+        android:background="#e4e3e3"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:id="@+id/battory_indication"
+            android:src="@drawable/bat_100"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            />
+
+
+        <View
+            android:layout_height="fill_parent"
+            android:layout_width="1dp"
+            android:layout_column="1"
+            android:background="#ff909090" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:id="@+id/voltage_on"
+            android:src="@drawable/ic_voltag_off"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            />
+
+
+
+        <View
+            android:layout_height="fill_parent"
+            android:layout_column="2"
+            android:layout_width="2dp"
+            android:background="#ff909090" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:id="@+id/rssi_indication"
+            android:src="@drawable/rssi_80"
+            android:layout_column="3"
+            android:padding="10dp"
+            android:scaleType="fitCenter"/>
+
+    </TableRow>
+
+    <View
+        android:background="#ff909090"
+        android:layout_height="2dp"/>
+
+
+    <!--<TableRow-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="bottom">-->
+
+        <!--<FrameLayout-->
+            <!--android:layout_column="0"-->
+            <!--android:layout_span="5"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="center">-->
+
+            <!--<ImageButton-->
+                <!--android:src="@drawable/button_off"-->
+                <!--android:scaleType="fitCenter"-->
+                <!--android:layout_height="200dp"-->
+                <!--android:layout_width="200dp"-->
+                <!--android:id="@+id/switch_button"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:onClick="switch_indication"/>-->
+            <!--</FrameLayout>-->
+    <!--</TableRow>-->
+
+</TableLayout>
