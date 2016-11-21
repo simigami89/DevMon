@@ -14,7 +14,7 @@ import android.bluetooth.BluetoothDevice;
         this.mRssi = rssi;
     }
 
-     BluetoothDevice getBluetoothDevice() {
+     public BluetoothDevice getBluetoothDevice() {
         return this.mBtDevice;
     }
 

@@ -53,44 +53,19 @@ public class ConnectedActivity extends AppCompatActivity {
 
     public static String SERVICE_FLAG_CONTROL = "5ac7f1a0-717e-11e5-a837-0800200c9a66";
     public static String CHAR_STATE_FLAG = "5ac7F1A1-717e-11e5-a837-0800200c9a66";
-    public static String CHAR_LED_BLINK = "5ac70AE1-717e-11e5-a837-0800200c9a66";
     public static String CLIENT_CHARACTERISTIC_CONFIG = "00002902-0000-1000-8000-00805f9b34fb";
-    public static String DEVICE_1_ADDRESS = "5ac70ad2-717e-11e5-a837-0800200c9a66";
-    public static String DEVICE_2_ADDRESS = "5ac70ad3-717e-11e5-a837-0800200c9a66";
-    public static String FIRMWARE_VERSION_CHARACTERISTIC = "00002a26-0000-1000-8000-00805f9b34fb";
-    public static String HARDWARE_VERSION_CHARACTERISTIC = "00002a27-0000-1000-8000-00805f9b34fb";
-    public static String LED_SERVICE = "5ac70ae0-717e-11e5-a837-0800200c9a66";
-    public static String MANUFACTURED_CHARACTERISTIC = "00002a29-0000-1000-8000-00805f9b34fb";
-    public static String MODEL_VERSION_CHARACTERISTIC = "00002a24-0000-1000-8000-00805f9b34fb";
-    public static String PHASE = "5ac70ad4-717e-11e5-a837-0800200c9a66";
-    public static String SERIAL_NUMBER_CHARACTERISTIC = "00002a25-0000-1000-8000-00805f9b34fb";
-    public static String SERVICE_BANK_INFO = "5ac70ad0-717e-11e5-a837-0800200c9a66";
     public static String SERVICE_CUR_VALS = "5ac70ac0-717e-11e5-a837-0800200c9a66";
-    public static String SERVICE_DEVICE_INFO = "0000180a-0000-1000-8000-00805f9b34fb";
-
-    public static String SERVICE_SIMPLE_PROFILE = "0000fff0-0000-1000-8000-00805f9b34fb";
-    public static String SERVICE_SIMPLE_CHAR4 = "0000fff4-0000-1000-8000-00805f9b34fb";
 
     private static BluetoothGattCharacteristic gattCharacteristic1;
-
-    private static BluetoothGattService mBluetoothGattServiceBankInfo;
     private static BluetoothGattService mBluetoothGattServiceCurVals;
-    private static BluetoothGattService mBluetoothGattServiceDeviceInfo;
-    private static BluetoothGattService mBluetoothGattServiceLed;
-
-    private static BluetoothGattService mBluetoothGattServiceSimpleProfile;
     private static BluetoothGattService mBluetoothGattServiceFlagControl;
 
     static ArrayList<BluetoothGattService> deviceServices = new ArrayList();
 
-
-
-    private ViewPager mViewPager;
     private MenuItem connectBtn;
 
     private static BluetoothManager mBluetoothManager;
     private static BluetoothDevice mDevice;
-    private static DeviceInfo mDeviceInfo;
     private static BluetoothGatt mBluetoothGatt;
 
     final static String DEBUG = ConnectedActivity.class.getName();
@@ -169,7 +144,6 @@ public class ConnectedActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        mDeviceInfo = DeviceInfo.getInstance();
         mDevice = (BluetoothDevice) getIntent().getParcelableExtra("device");
         mBluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         connect();
@@ -398,51 +372,6 @@ public class ConnectedActivity extends AppCompatActivity {
         configTimer.schedule(taskConfig, 2000, 2000);
     }
 
-    private void readInfo() {
-        charReadCount = 0;
-        if (readCharTimer != null) {
-            readCharTimer.cancel();
-        }
-        if (taskReadCharConfig != null) {
-            taskReadCharConfig.cancel();
-        }
-        readCharTimer = new Timer();
-        taskReadCharConfig = new TimerTask() {
-            public void run() {
-                switch (ConnectedActivity.charReadCount) {
-                    case 0:
-                        mBluetoothGatt.readCharacteristic(mBluetoothGattServiceDeviceInfo.getCharacteristic(UUID.fromString(MODEL_VERSION_CHARACTERISTIC)));
-                        break;
-                    case 1:
-                        mBluetoothGatt.readCharacteristic(mBluetoothGattServiceDeviceInfo.getCharacteristic(UUID.fromString(SERIAL_NUMBER_CHARACTERISTIC)));
-                        break;
-                    case 2:
-                        mBluetoothGatt.readCharacteristic(mBluetoothGattServiceDeviceInfo.getCharacteristic(UUID.fromString(HARDWARE_VERSION_CHARACTERISTIC)));
-                        break;
-                    case 3:
-                        mBluetoothGatt.readCharacteristic(mBluetoothGattServiceDeviceInfo.getCharacteristic(UUID.fromString(FIRMWARE_VERSION_CHARACTERISTIC)));
-                        break;
-                    case 4:
-                        mBluetoothGatt.readCharacteristic(mBluetoothGattServiceDeviceInfo.getCharacteristic(UUID.fromString(MANUFACTURED_CHARACTERISTIC)));
-                        break;
-                    case 5:
-                        mBluetoothGatt.readCharacteristic(mBluetoothGattServiceBankInfo.getCharacteristic(UUID.fromString(DEVICE_1_ADDRESS)));
-                        break;
-                    case 6:
-                        mBluetoothGatt.readCharacteristic(mBluetoothGattServiceBankInfo.getCharacteristic(UUID.fromString(DEVICE_2_ADDRESS)));
-                        break;
-                    case 7:
-                        mBluetoothGatt.readCharacteristic(mBluetoothGattServiceBankInfo.getCharacteristic(UUID.fromString(PHASE)));
-                        break;
-                }
-                if (ConnectedActivity.charReadCount == 7) {
-                    readCharTimer.cancel();
-                }
-                charReadCount++;
-            }
-        };
-        readCharTimer.schedule(taskReadCharConfig, 100, 100);
-    }
 
 
     public static void writeCharacteristicValue(String service, String characteristic, byte[] bytes, View view) {
