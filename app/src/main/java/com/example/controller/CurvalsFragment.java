@@ -1,37 +1,18 @@
 package com.example.controller;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CurvalsFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link CurvalsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CurvalsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+
 
     static TextView curVal_I;
     static TextView indication_text;
-    static TextView curVal_I_C;
-    static TextView curVal_U_A;
-    static TextView curVal_U_B;
-    static TextView curVal_U_C;
-    static TextView rssi_value;
 
     static ImageView rssi_icon;
     static ImageView voltag_icon;
@@ -39,14 +20,6 @@ public class CurvalsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-
-     * @return A new instance of fragment CurvalsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static CurvalsFragment newInstance() {
         CurvalsFragment fragment = new CurvalsFragment();
         Bundle args = new Bundle();
@@ -75,29 +48,15 @@ public class CurvalsFragment extends Fragment {
 
         curVal_I = (TextView) rootView.findViewById(R.id.cur_val_I);
         indication_text = (TextView) rootView.findViewById(R.id.indication_text);
-//        curVal_I_B = (TextView) rootView.findViewById(R.id.cur_val_I_B);
-//        curVal_U_B = (TextView) rootView.findViewById(R.id.cur_val_U_B);
-//        curVal_I_C = (TextView) rootView.findViewById(R.id.cur_val_I_C);
-//        curVal_U_C = (TextView) rootView.findViewById(R.id.cur_val_U_C);
-        //rssi_value = (TextView) rootView.findViewById(R.id.rssi_value);
         rssi_icon = (ImageView) rootView.findViewById(R.id.rssi_indication);
         voltag_icon = (ImageView) rootView.findViewById(R.id.voltage_icon);
         return rootView;
     }
 
     public static void showValues(){
-        curVal_I.setText(String.valueOf(mCurVals.getI_A())+" A");
-//        curVal_U_A.setText(mCurVals.getU_A());
-//        curVal_I_B.setText(mCurVals.getI_B());
-//        curVal_U_B.setText(mCurVals.getU_B());
-//        curVal_I_C.setText(mCurVals.getI_C());
-//        curVal_U_C.setText(mCurVals.getU_C());
-        //rssi_value.setText(mCurVals.getRSSI());
-//        if(mCurVals.isStateFlag())
-//            switch_button.setImageResource(R.drawable.button_on);
-//        else
-            //switch_button.setImageResource(R.drawable.button_off);
-        if(mCurVals.getU_A()>10)
+        curVal_I.setText(String.valueOf(mCurVals.getI())+" A");
+
+        if(mCurVals.getU()>10)
             voltag_icon.setImageResource(R.drawable.ic_voltag_on);
         else voltag_icon.setImageResource(R.drawable.ic_voltag_off);
 
@@ -127,19 +86,9 @@ public class CurvalsFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+
+
     }
 
 }

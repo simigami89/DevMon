@@ -5,24 +5,24 @@ import android.bluetooth.BluetoothDevice;
 /**
  * Created by Екатерина Захарова on 25.02.2016.
  */
-public class BleDeviceInfo {
+ class BleDeviceInfo {
     private BluetoothDevice mBtDevice;
     private int mRssi;
 
-    public BleDeviceInfo(BluetoothDevice device, int rssi) {
+    BleDeviceInfo(BluetoothDevice device, int rssi) {
         this.mBtDevice = device;
         this.mRssi = rssi;
     }
 
-    public BluetoothDevice getBluetoothDevice() {
+     BluetoothDevice getBluetoothDevice() {
         return this.mBtDevice;
     }
 
-    public int getRssi() {
+     int getRssi() {
         return this.mRssi;
     }
 
-    public void updateRssi(int rssiValue) {
+     void updateRssi(int rssiValue) {
         this.mRssi = rssiValue;
     }
 }

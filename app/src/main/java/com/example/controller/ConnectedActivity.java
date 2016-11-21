@@ -83,7 +83,7 @@ public class ConnectedActivity extends AppCompatActivity {
 
     static ArrayList<BluetoothGattService> deviceServices = new ArrayList();
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+
 
     private ViewPager mViewPager;
     private MenuItem connectBtn;
@@ -134,18 +134,7 @@ public class ConnectedActivity extends AppCompatActivity {
                 finish();
             }
         });
-//        textView = (TextView) findViewById(R.id.textTest);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-
-        // Set up the ViewPager with the sections adapter.
-//        mViewPager = (ViewPager) findViewById(R.id.container);
-//        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-//        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-//        tabLayout.setupWithViewPager(mViewPager);
 
         mHandler = new Handler() {
             public void handleMessage(Message msg) {
@@ -292,30 +281,6 @@ public class ConnectedActivity extends AppCompatActivity {
 
                         countServices++;
                     }
-//                    if (LED_SERVICE.equals(gattService.getUuid().toString())) {
-//                        mBluetoothGattServiceLed = gattService;
-//                        deviceServices.add(mBluetoothGattServiceLed);
-//                        Log.d(DEBUG, "Found led Service");
-//                        countServices++;
-//                    }
-//                    if (SERVICE_DEVICE_INFO.equals(gattService.getUuid().toString())) {
-//                        mBluetoothGattServiceDeviceInfo = gattService;
-//                        deviceServices.add(mBluetoothGattServiceDeviceInfo);
-//                        Log.d(DEBUG, "Found deviceInfo Service");
-//                        countServices++;
-//                    }
-//                    if (SERVICE_BANK_INFO.equals(gattService.getUuid().toString())) {
-//                        mBluetoothGattServiceBankInfo = gattService;
-//                        deviceServices.add(mBluetoothGattServiceBankInfo);
-//                        Log.d(DEBUG, "Found BankInfo Service");
-//                        countServices++;
-//                    }
-//                }
-//
-
-//
-//                return;
-//                    enableNotification();
                 }
                 if(countServices == 2)
                     enableNotification();
@@ -348,15 +313,7 @@ public class ConnectedActivity extends AppCompatActivity {
                 mCurVals.setI_A(Integer.parseInt(str));
             } else if (uuidString.equals(ConnectedActivity.CHAR_CUR_VAL_U_A)) {
                 mCurVals.setU_A(Integer.parseInt(str));
-            } else if (uuidString.equals(ConnectedActivity.CHAR_CUR_VAL_I_B)) {
-                mCurVals.setI_B(str);
-            } else if (uuidString.equals(ConnectedActivity.CHAR_CUR_VAL_U_B)) {
-               mCurVals.setU_B(str);
-            } else if (uuidString.equals(ConnectedActivity.CHAR_CUR_VAL_I_C)) {
-                mCurVals.setI_C(str);
-            } else if (uuidString.equals(ConnectedActivity.CHAR_CUR_VAL_U_C)) {
-                mCurVals.setU_C(str);
-            } else if (uuidString.equals(ConnectedActivity.CHAR_STATE_FLAG)) {
+            }else if (uuidString.equals(ConnectedActivity.CHAR_STATE_FLAG)) {
                 stateFlag = !stateFlag;
                 mCurVals.setStateFlag(stateFlag);
             }
@@ -383,22 +340,6 @@ public class ConnectedActivity extends AppCompatActivity {
                     mCurVals.setStateFlag(true);
                 }else mCurVals.setStateFlag(false);
                 ButtonFragment.changeIcon(mCurVals.isStateFlag());
-            } else if (characteristic.getUuid().equals(UUID.fromString(FIRMWARE_VERSION_CHARACTERISTIC))) {
-                mDeviceInfo.setFirmvare(str);
-            } else if (characteristic.getUuid().equals(UUID.fromString(HARDWARE_VERSION_CHARACTERISTIC))) {
-                mDeviceInfo.setHardware(str);
-            } else if (characteristic.getUuid().equals(UUID.fromString(MANUFACTURED_CHARACTERISTIC))) {
-                mDeviceInfo.setManufartured(str);
-            } else if (characteristic.getUuid().equals(UUID.fromString(SERIAL_NUMBER_CHARACTERISTIC))) {
-                mDeviceInfo.setSerial(str);
-            } else if (characteristic.getUuid().equals(UUID.fromString(DEVICE_1_ADDRESS))) {
-                str = byteToHex(tx);
-                mDeviceInfo.setDevice1(str);
-            } else if (characteristic.getUuid().equals(UUID.fromString(DEVICE_2_ADDRESS))) {
-                str = byteToHex(tx);
-                mDeviceInfo.setDevice2(str);
-            } else if (characteristic.getUuid().equals(UUID.fromString(PHASE))) {
-                mDeviceInfo.setPhase(str);
             }
             Log.d(ConnectedActivity.DEBUG, str);
         }
@@ -414,11 +355,6 @@ public class ConnectedActivity extends AppCompatActivity {
     }
 
     private void enableNotification() {
-//        gattCharacteristic1 = mBluetoothGattServiceSimpleProfile.getCharacteristic(UUID.fromString(SERVICE_SIMPLE_CHAR4));
-//        mBluetoothGatt.setCharacteristicNotification(ConnectedActivity.gattCharacteristic1, true);
-//        BluetoothGattDescriptor descriptor = gattCharacteristic1.getDescriptor(UUID.fromString(CLIENT_CHARACTERISTIC_CONFIG));
-//        descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-//        mBluetoothGatt.writeDescriptor(descriptor);
 
         charEnabledCount = 0;
         if (configTimer != null) {
@@ -430,12 +366,6 @@ public class ConnectedActivity extends AppCompatActivity {
         configTimer = new Timer();
         taskConfig = new TimerTask() {
             public void run() {
-//                gattCharacteristic1 = mBluetoothGattServiceSimpleProfile.getCharacteristic(UUID.fromString(SERVICE_SIMPLE_CHAR4));
-//                mBluetoothGatt.setCharacteristicNotification(ConnectedActivity.gattCharacteristic1, true);
-//                BluetoothGattDescriptor descriptor = gattCharacteristic1.getDescriptor(UUID.fromString(CLIENT_CHARACTERISTIC_CONFIG));
-//                descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-//                mBluetoothGatt.writeDescriptor(descriptor);
-//                charEnabledCount++;
 
                 switch (charEnabledCount) {
                     case 0:
@@ -450,18 +380,6 @@ public class ConnectedActivity extends AppCompatActivity {
                         gattCharacteristic1 = mBluetoothGattServiceFlagControl.getCharacteristic(UUID.fromString(CHAR_STATE_FLAG));
                         mBluetoothGatt.setCharacteristicNotification(ConnectedActivity.gattCharacteristic1, true);
                         break;
-//                    case 3:
-//                        gattCharacteristic1 = mBluetoothGattServiceCurVals.getCharacteristic(UUID.fromString(CHAR_CUR_VAL_U_B));
-//                        mBluetoothGatt.setCharacteristicNotification(ConnectedActivity.gattCharacteristic1, true);
-//                        break;
-//                    case 4:
-//                        gattCharacteristic1 = mBluetoothGattServiceCurVals.getCharacteristic(UUID.fromString(CHAR_CUR_VAL_I_C));
-//                        mBluetoothGatt.setCharacteristicNotification(ConnectedActivity.gattCharacteristic1, true);
-//                        break;
-//                    case 5:
-//                        gattCharacteristic1 = mBluetoothGattServiceCurVals.getCharacteristic(UUID.fromString(CHAR_CUR_VAL_U_C));
-//                        mBluetoothGatt.setCharacteristicNotification(ConnectedActivity.gattCharacteristic1, true);
-//                        break;
                 }
                 BluetoothGattDescriptor descriptor = gattCharacteristic1.getDescriptor(UUID.fromString(CLIENT_CHARACTERISTIC_CONFIG));
                 descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
@@ -470,9 +388,7 @@ public class ConnectedActivity extends AppCompatActivity {
                 if (charEnabledCount == 3) {
                     configTimer.cancel();
                     mBluetoothGatt.readCharacteristic(mBluetoothGattServiceFlagControl.getCharacteristic(UUID.fromString(CHAR_STATE_FLAG)));
-                   // readInfo();
                 }
-//                configTimer.cancel();
             }
         };
 
@@ -558,55 +474,4 @@ public class ConnectedActivity extends AppCompatActivity {
         mHandler.sendMessage(mHandler.obtainMessage(CHANGE_BUTTON_ICON));
 
     }
-
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            Fragment fragment = null;
-            switch (position){
-                case 0:
-                    fragment = CurvalsFragment.newInstance();
-                    break;
-                case 1:
-                    fragment = ConfigFragment.newInstance();
-                    break;
-                case 2:
-                    fragment = InfoFragment.newInstance();
-                    break;
-            }
-            return fragment;
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 3;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "CURVALS";
-                case 1:
-                    return "CONFIG";
-                case 2:
-                    return "INFO";
-            }
-            return null;
-        }
-    }
-
 }
