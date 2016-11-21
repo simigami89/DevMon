@@ -5,13 +5,13 @@ package com.example.controller;
  */
 public class CurVals {
     private static CurVals _instance = null;
-    private static String I_A = "----";
-    private static String I_B = "----";
-    private static String I_C = "----";
+    private static int I_A = 0;
+    private static String I_B = "0";
+    private static String I_C = "0";
     private static int RSSI = 0;
-    private static String U_A = "----";
-    private static String U_B = "----";
-    private static String U_C = "----";
+    private static int U_A = 0;
+    private static String U_B = "0";
+    private static String U_C = "0";
     private boolean StateFlag = false;
     private CurVals() {
     }
@@ -35,11 +35,11 @@ public class CurVals {
         return curVals;
     }
 
-    public void setI_A(String i) {
+    public void setI_A(int i) {
         I_A = i;
     }
 
-    public void setU_A(String u) {
+    public void setU_A(int u) {
         U_A = u;
     }
 
@@ -79,11 +79,11 @@ public class CurVals {
         return I_B;
     }
 
-    public String getU_A() {
+    public int getU_A() {
         return U_A;
     }
 
-    public String getI_A() {
+    public int getI_A() {
         return I_A;
     }
 

@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
@@ -8,17 +9,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -47,9 +51,10 @@ public class MainActivity extends AppCompatActivity {
 
     DeviceAdapter mDeviceAdapter;
     boolean bleEnabled = false;
-
+    private LocationManager locationManager;
     private static List<BleDeviceInfo> mDevices = new ArrayList();
 
+    @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,21 +67,38 @@ public class MainActivity extends AppCompatActivity {
         mDeviceAdapter = new DeviceAdapter(this, mDevices);
         listFoundDevice.setAdapter(mDeviceAdapter);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if(this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED) {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("This app needs location access");
-                builder.setMessage("Please grant location access so this app cat detect ble.");
-                builder.setOnDismissListener(new DialogInterface.OnDismissListener(){
-                    @Override
-                    public void onDismiss(DialogInterface dialog){
-                        requestPermissions(new  String[]{Manifest.permission.ACCESS_COARSE_LOCATION},PERMISSION_REQUEST_COARSE_LOCATION);
-                    }
-                });
-                builder.show();
-            }
-        }
+        //View root = listFoundDevice.getRootView();
 
+        // Set the color
+        //root.setBackgroundResource(R.drawable.ic_bluetooth_searching);
+        
+        if(runtime_permissins()){
+//            Intent i =new Intent(getApplicationContext(),GPS_Service.class);
+//            startService(i);
+        }
+        //if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            if(this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED) {
+//                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                builder.setTitle("This app needs location access");
+//                builder.setMessage("Please grant location access so this app ca detect ble.");
+//                builder.setOnDismissListener(new DialogInterface.OnDismissListener(){
+//                    @Override
+//                    public void onDismiss(DialogInterface dialog){
+//                        requestPermissions(new  String[]{Manifest.permission.ACCESS_COARSE_LOCATION},PERMISSION_REQUEST_COARSE_LOCATION);
+//                    }
+//                });
+//                builder.show();
+//            }
+        //}
+
+
+//        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+//
+//        if(!(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+//                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))){
+//            startActivity(new Intent(
+//                    android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+//        }
         enableBLE();
         if(bleEnabled){
             startScan();
@@ -88,6 +110,16 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+    }
+
+    private boolean runtime_permissins() {
+        if(Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this, Manifest.permission
+        .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest
+        .permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},100);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -116,8 +148,10 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_about) {
+            Uri address = Uri.parse("http://antraks.ru");
+            Intent openlinkIntent = new Intent(Intent.ACTION_VIEW, address);
+            startActivity(openlinkIntent);
         }else if (id == R.id.action_search){
             search.setActionView(R.layout.progress_bar);
             mDevices.clear();
@@ -245,23 +279,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
+
         switch (requestCode) {
-            case PERMISSION_REQUEST_COARSE_LOCATION: {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            case 100: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1]==PackageManager.PERMISSION_GRANTED) {
                     Log.d(DEBUG, "coarse location permission granted");
+                    Intent i = new Intent(getApplicationContext(),GPS_Service.class);
+                    stopService(i);
                 } else {
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle("Functionality limited");
-                    builder.setMessage("Since location access has not been granted, this app will not be able to discover beacons when in the background.");
-                    builder.setPositiveButton(android.R.string.ok, null);
-                    builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                        }
-
-                    });
-                    builder.show();
+                    runtime_permissins();
                 }
                 return;
             }

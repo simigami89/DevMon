@@ -26,7 +26,7 @@ public class CurvalsFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     static TextView curVal_I;
-    static TextView curVal_I_B;
+    static TextView indication_text;
     static TextView curVal_I_C;
     static TextView curVal_U_A;
     static TextView curVal_U_B;
@@ -34,7 +34,7 @@ public class CurvalsFragment extends Fragment {
     static TextView rssi_value;
 
     static ImageView rssi_icon;
-    //static ImageButton switch_button;
+    static ImageView voltag_icon;
     private static CurVals mCurVals;
 
     private OnFragmentInteractionListener mListener;
@@ -74,19 +74,19 @@ public class CurvalsFragment extends Fragment {
         mCurVals = CurVals.getInstance();
 
         curVal_I = (TextView) rootView.findViewById(R.id.cur_val_I);
-        //curVal_U_A = (TextView) rootView.findViewById(R.id.cur_val);
+        indication_text = (TextView) rootView.findViewById(R.id.indication_text);
 //        curVal_I_B = (TextView) rootView.findViewById(R.id.cur_val_I_B);
 //        curVal_U_B = (TextView) rootView.findViewById(R.id.cur_val_U_B);
 //        curVal_I_C = (TextView) rootView.findViewById(R.id.cur_val_I_C);
 //        curVal_U_C = (TextView) rootView.findViewById(R.id.cur_val_U_C);
         //rssi_value = (TextView) rootView.findViewById(R.id.rssi_value);
         rssi_icon = (ImageView) rootView.findViewById(R.id.rssi_indication);
-        //switch_button = (ImageButton) rootView.findViewById(R.id.switch_button);
+        voltag_icon = (ImageView) rootView.findViewById(R.id.voltage_icon);
         return rootView;
     }
 
     public static void showValues(){
-        curVal_I.setText(mCurVals.getI_A());
+        curVal_I.setText(String.valueOf(mCurVals.getI_A())+" A");
 //        curVal_U_A.setText(mCurVals.getU_A());
 //        curVal_I_B.setText(mCurVals.getI_B());
 //        curVal_U_B.setText(mCurVals.getU_B());
@@ -97,6 +97,15 @@ public class CurvalsFragment extends Fragment {
 //            switch_button.setImageResource(R.drawable.button_on);
 //        else
             //switch_button.setImageResource(R.drawable.button_off);
+        if(mCurVals.getU_A()>10)
+            voltag_icon.setImageResource(R.drawable.ic_voltag_on);
+        else voltag_icon.setImageResource(R.drawable.ic_voltag_off);
+
+        if(mCurVals.isStateFlag()){
+            indication_text.setText("Indication on");
+        }
+        else indication_text.setText("Indication off");
+        ButtonFragment.changeIcon(mCurVals.isStateFlag());
     }
 
     public static void ChangeRSSIicon(){

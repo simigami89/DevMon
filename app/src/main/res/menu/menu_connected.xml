@@ -15,8 +15,5 @@
         android:title="@string/btn_toolbar"
         app:showAsAction="always" />
 
-    <item android:id="@+id/action_refresh"
-        android:orderInCategory="300"
-        android:title="@string/refresh_string"
-        app:showAsAction="never" />
+
 </menu>

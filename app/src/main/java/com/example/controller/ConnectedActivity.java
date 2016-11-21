@@ -9,6 +9,8 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -210,7 +212,9 @@ public class ConnectedActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_about) {
-            enableNotification();
+            Uri address = Uri.parse("http://antraks.ru");
+            Intent openlinkIntent = new Intent(Intent.ACTION_VIEW, address);
+            startActivity(openlinkIntent);
             return true;
         }
         else if (id == R.id.btn_toolbar) {
@@ -220,9 +224,6 @@ public class ConnectedActivity extends AppCompatActivity {
             else if(mBluetoothManager.getConnectionState(mDevice,7) == BluetoothProfile.STATE_DISCONNECTED){
                 connect();
             }
-        }
-        else if (id == R.id.action_refresh){
-            readInfo();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -344,9 +345,9 @@ public class ConnectedActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if (uuidString.equals(ConnectedActivity.CHAR_CUR_VAL_I_A)) {
-                mCurVals.setI_A(str+" A");
+                mCurVals.setI_A(Integer.parseInt(str));
             } else if (uuidString.equals(ConnectedActivity.CHAR_CUR_VAL_U_A)) {
-                mCurVals.setU_A(str);
+                mCurVals.setU_A(Integer.parseInt(str));
             } else if (uuidString.equals(ConnectedActivity.CHAR_CUR_VAL_I_B)) {
                 mCurVals.setI_B(str);
             } else if (uuidString.equals(ConnectedActivity.CHAR_CUR_VAL_U_B)) {
@@ -377,8 +378,11 @@ public class ConnectedActivity extends AppCompatActivity {
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-            if (characteristic.getUuid().equals(UUID.fromString(MODEL_VERSION_CHARACTERISTIC))) {
-                mDeviceInfo.setModel(str);
+            if (characteristic.getUuid().equals(UUID.fromString(CHAR_STATE_FLAG))) {
+                if(Integer.parseInt(str)!=0) {
+                    mCurVals.setStateFlag(true);
+                }else mCurVals.setStateFlag(false);
+                ButtonFragment.changeIcon(mCurVals.isStateFlag());
             } else if (characteristic.getUuid().equals(UUID.fromString(FIRMWARE_VERSION_CHARACTERISTIC))) {
                 mDeviceInfo.setFirmvare(str);
             } else if (characteristic.getUuid().equals(UUID.fromString(HARDWARE_VERSION_CHARACTERISTIC))) {
@@ -465,7 +469,8 @@ public class ConnectedActivity extends AppCompatActivity {
                 charEnabledCount++;
                 if (charEnabledCount == 3) {
                     configTimer.cancel();
-                    //readInfo();
+                    mBluetoothGatt.readCharacteristic(mBluetoothGattServiceFlagControl.getCharacteristic(UUID.fromString(CHAR_STATE_FLAG)));
+                   // readInfo();
                 }
 //                configTimer.cancel();
             }

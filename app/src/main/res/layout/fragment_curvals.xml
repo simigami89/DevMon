@@ -19,13 +19,12 @@
         android:paddingTop="15dp">
 
         <ImageView
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_column="0"
-            android:text="Индикация"
+            android:layout_width="50dp"
+            android:text="Indication"
             android:src="@drawable/icon_indication"
             />
-
-
 
         <View
             android:layout_height="fill_parent"
@@ -35,9 +34,11 @@
         <TextView
             android:layout_height="wrap_content"
             android:layout_column="2"
-            android:layout_span="2"
+            android:layout_span="3"
             android:textSize="20sp"
-            android:text="Индикация"
+            android:layout_gravity="left|center"
+            android:text="Indication"
+            android:id="@+id/indication_text"
             android:textStyle="bold" />
 
 
@@ -103,7 +104,7 @@
         android:background="#e4e3e3"
         >
         <ImageView
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/battory_indication"
             android:src="@drawable/bat_100"
@@ -119,9 +120,9 @@
             android:background="#ff909090" />
 
         <ImageView
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="100dp"
-            android:id="@+id/voltage_on"
+            android:id="@+id/voltage_icon"
             android:src="@drawable/ic_voltag_off"
             android:padding="10dp"
             android:scaleType="fitCenter"
@@ -136,7 +137,7 @@
             android:background="#ff909090" />
 
         <ImageView
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/rssi_indication"
             android:src="@drawable/rssi_null"
