@@ -54,7 +54,7 @@ public class CurvalsFragment extends Fragment {
     }
 
     public static void showValues(){
-        curVal_I.setText(String.valueOf(mCurVals.getI())+" A");
+        curVal_I.setText(String.valueOf(mCurVals.getI())+" units");
 
         if(mCurVals.getU()>10)
             voltag_icon.setImageResource(R.drawable.ic_voltag_on);
