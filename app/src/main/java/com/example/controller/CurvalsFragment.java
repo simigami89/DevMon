@@ -76,7 +76,7 @@ public class CurvalsFragment extends Fragment {
             rssi_icon.setImageResource(R.drawable.rssi_70);
         else if(mCurVals.getRSSI() < -60)
             rssi_icon.setImageResource(R.drawable.rssi_60);
-        else if(mCurVals.getRSSI() < -50)
+        else
             rssi_icon.setImageResource(R.drawable.rssi_50);
     }
 

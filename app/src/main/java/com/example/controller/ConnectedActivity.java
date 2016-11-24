@@ -155,6 +155,7 @@ public class ConnectedActivity extends AppCompatActivity {
         if (mBluetoothGatt == null) {
             mBluetoothGatt = mDevice.connectGatt(getApplicationContext(), false, mGattCallback);
             Log.d(DEBUG, "connectGatt()");
+            mHandler.sendMessage(mHandler.obtainMessage(STATE_CONNECTING));
         }
     }
 

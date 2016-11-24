@@ -54,8 +54,8 @@
     <TableRow >
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:id="@+id/icon_i"
             android:src="@drawable/icon_i"
             android:padding="10dp"
@@ -72,9 +72,9 @@
             android:padding="30dp"
             android:layout_height="100dp"
             android:layout_column="2"
-
+            android:layout_span="3"
             android:id="@+id/cur_val_I"
-            android:text="1 A"
+            android:text="1 units"
             android:textStyle="bold"
             android:textColor="#000000"
             android:textSize="30sp" />
@@ -110,8 +110,8 @@
             android:src="@drawable/bat_100"
             android:padding="10dp"
             android:scaleType="fitCenter"
+            android:layout_column="0"
             />
-
 
         <View
             android:layout_height="fill_parent"
@@ -126,13 +126,12 @@
             android:src="@drawable/ic_voltag_off"
             android:padding="10dp"
             android:scaleType="fitCenter"
+            android:layout_column="2"
             />
-
-
 
         <View
             android:layout_height="fill_parent"
-            android:layout_column="2"
+            android:layout_column="3"
             android:layout_width="2dp"
             android:background="#ff909090" />
 
@@ -141,7 +140,7 @@
             android:layout_height="100dp"
             android:id="@+id/rssi_indication"
             android:src="@drawable/rssi_null"
-            android:layout_column="3"
+            android:layout_column="4"
             android:padding="10dp"
             android:scaleType="fitCenter"/>
 
